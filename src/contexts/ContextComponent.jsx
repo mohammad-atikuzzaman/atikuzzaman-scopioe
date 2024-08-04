@@ -16,7 +16,7 @@ const fbProvider = new FacebookAuthProvider();
 
 const ContextComponent = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const registerWithEmailPass = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -38,8 +38,10 @@ const ContextComponent = ({ children }) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
 
     return () => unSubscribe();
