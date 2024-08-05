@@ -1,13 +1,13 @@
-import { useContext, useState } from "react";
-import { FaFacebookF, FaRegEyeSlash } from "react-icons/fa";
+import { useContext } from "react";
+import { FaFacebookF } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { MyContext } from "../contexts/ContextComponent";
 import { FcGoogle } from "react-icons/fc";
+import LoginForm from "../component/LoginForm";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [passType, setPassType] = useState(true);
 
   const { logInWithEmailPass, logInWithGoogle } = useContext(MyContext);
 
@@ -46,7 +46,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/home");
+        navigate("/");
       })
       .catch((err) => {
         console.error(err);
@@ -63,7 +63,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/home");
+        navigate("/");
       })
       .catch((err) => {
         console.error(err);
@@ -72,7 +72,7 @@ const Login = () => {
   return (
     <div>
       {/* this is desktop view  */}
-      <div className="hidden md:grid grid-cols-2 gap-32 mx-auto px-[110px] pt-[107px]">
+      <div className="hidden md:grid grid-cols-2 gap-32 mx-auto px-[110px] py-[107px]">
         <div className="text-[#152A16]">
           <h2 className="text-[40px] text-[#4285F3]">SCOPIOE</h2>
           <h3 className="font-semibold text-3xl mt-8 mb-6">
@@ -92,57 +92,8 @@ const Login = () => {
             </button>
           </div>
           <div className="divider">Or Continue with Email</div>
-          <form onSubmit={handleLoginWithEmailPass} className="mt-4">
-            <div className="space-y-4">
-              <label htmlFor="email" className="font-medium">
-                Email
-              </label>
-              <br />
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="border-2 rounded-md w-full p-3"
-                placeholder="Enter Your Email"
-              />
-            </div>
-            <br />
-            <div className="space-y-4 relative">
-              <label htmlFor="password" className="font-medium">
-                Password
-              </label>
-              <br />
-              <input
-                type={passType ? "password" : "text"}
-                name="password"
-                id="password"
-                className="border-2 rounded-md w-full p-4"
-                placeholder="Enter your password"
-              />
-              <FaRegEyeSlash
-                className="absolute top-12 right-5 text-xl "
-                onClick={() => setPassType(!passType)}
-              />
-            </div>
-            <br />
-            <div className="flex justify-between">
-              <div>
-                <input type="checkbox" name="acceptterms" id="acceptterms" />
-                <label htmlFor="acceptterms" className="ml-2">
-                  Remember me
-                </label>
-              </div>
-              <Link className="text-[#4285F3] underline">Forgot password</Link>
-            </div>
-            <br />
-            <div className="flex justify-center">
-              <input
-                type="submit"
-                value="Sign in"
-                className="bg-[#4285F3] py-4 px-32 rounded-[10px] font-semibold text-white cursor-pointer hover:scale-105 transition-all"
-              />
-            </div>
-          </form>
+          <LoginForm
+            handleLoginWithEmailPass={handleLoginWithEmailPass}></LoginForm>
           <div className="text-center font-medium mt-4">
             Don’t Have an Account?
             <Link to="/createaccount" className="text-[#156BCA]">
@@ -173,14 +124,14 @@ const Login = () => {
             </h4>
             <div className="bg-white rounded-t-[40px] mt-16 p-4">
               <div>
-                <h2 className="text-center font-semibold text-2xl">
+                <h2 className="text-center font-semibold text-2xl mt-8 mb-4">
                   Log In To Your Account
                 </h2>
                 <p className="text-center text-[14px]">
                   Welcome Back! Select a method to log in:
                 </p>
               </div>
-              <div className="flex items-center justify-around mt-14 mb-6">
+              <div className="flex items-center justify-around mt-14 mb-8">
                 <button
                   onClick={handleGoogleLogin}
                   className="bg-gradient-to-r from-[#a1a0a0] to-[#f1eded] text-[#152A16] flex items-center py-3 px-6 gap-4 rounded-lg shadow-lg hover:scale-105 transition-all">
@@ -191,63 +142,8 @@ const Login = () => {
                 </button>
               </div>
               <div className="divider">Or Continue with Email</div>
-              <form onSubmit={handleLoginWithEmailPass} className="mt-12">
-                <div className="space-y-4">
-                  <label htmlFor="email" className="font-medium">
-                    Email
-                  </label>
-                  <br />
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    className="border-2 rounded-md w-full p-3"
-                    placeholder="Enter Your Email"
-                  />
-                </div>
-                <br />
-                <div className="space-y-4 relative">
-                  <label htmlFor="password" className="font-medium">
-                    Password
-                  </label>
-                  <br />
-                  <input
-                    type={passType ? "password" : "text"}
-                    name="password"
-                    id="password"
-                    className="border-2 rounded-md w-full p-4"
-                    placeholder="Enter your password"
-                  />
-                  <FaRegEyeSlash
-                    className="absolute top-12 right-5 text-xl "
-                    onClick={() => setPassType(!passType)}
-                  />
-                </div>
-                <br />
-                <div className="flex justify-between">
-                  <div>
-                    <input
-                      type="checkbox"
-                      name="acceptterms"
-                      id="acceptterms"
-                    />
-                    <label htmlFor="acceptterms" className="ml-2">
-                      Remember me
-                    </label>
-                  </div>
-                  <Link className="text-[#4285F3] underline">
-                    Forgot password
-                  </Link>
-                </div>
-                <br />
-                <div className="flex justify-center mt-12">
-                  <input
-                    type="submit"
-                    value="Sign in"
-                    className="bg-[#4285F3] py-4 px-32 rounded-[10px] font-semibold text-white cursor-pointer hover:scale-105 transition-all"
-                  />
-                </div>
-              </form>
+              <LoginForm
+                handleLoginWithEmailPass={handleLoginWithEmailPass}></LoginForm>
               <div className="text-center font-medium mt-4">
                 Don't Have an Account?{" "}
                 <Link to="/createaccount" className="text-[#156BCA]">
